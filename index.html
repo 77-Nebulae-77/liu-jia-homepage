@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>刘佳 | 华东交通大学 软件工程</title>
+  <style>
+    :root {
+      --ink: #17252f;
+      --muted: #5c6e78;
+      --line: #dce6e8;
+      --paper: #f6faf9;
+      --white: #ffffff;
+      --green: #08766f;
+      --green-dark: #07514d;
+      --gold: #dca23d;
+      --red: #bd4b3b;
+      --shadow: 0 22px 58px rgba(23, 37, 47, 0.16);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+      background: var(--paper);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px clamp(20px, 5vw, 72px);
+      color: var(--white);
+      background: linear-gradient(180deg, rgba(7, 23, 28, 0.82), rgba(7, 23, 28, 0));
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--white);
+      color: var(--green-dark);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      font-size: 14px;
+      opacity: 0.96;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+      color: var(--white);
+      background: #15252b;
+    }
+
+    .hero-slider,
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+    }
+
+    .hero-slide {
+      opacity: 0;
+      transition: opacity 900ms ease;
+    }
+
+    .hero-slide.is-active {
+      opacity: 1;
+    }
+
+    .hero-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.98) contrast(1.03);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(4, 14, 18, 0.9) 0%, rgba(4, 14, 18, 0.68) 44%, rgba(4, 14, 18, 0.18) 100%),
+        linear-gradient(0deg, rgba(4, 14, 18, 0.72) 0%, rgba(4, 14, 18, 0.14) 55%, rgba(4, 14, 18, 0.34) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 128px 0 78px;
+    }
+
+    .hero-dots {
+      position: absolute;
+      z-index: 2;
+      right: clamp(20px, 5vw, 72px);
+      bottom: 32px;
+      display: flex;
+      gap: 9px;
+    }
+
+    .hero-dots button,
+    .carousel-dots button {
+      width: 10px;
+      height: 10px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.45);
+      cursor: pointer;
+    }
+
+    .hero-dots button.is-active,
+    .carousel-dots button.is-active {
+      background: var(--gold);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 18px;
+      color: #d8fffb;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 36px;
+      height: 2px;
+      background: var(--gold);
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 780px;
+      font-size: clamp(40px, 8vw, 86px);
+    }
+
+    h2 {
+      font-size: clamp(28px, 4.2vw, 46px);
+    }
+
+    h3 {
+      font-size: 22px;
+    }
+
+    .lead {
+      max-width: 680px;
+      margin: 22px 0 32px;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: clamp(17px, 2.3vw, 22px);
+      overflow-wrap: anywhere;
+    }
+
+    .hero-actions,
+    .location-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 20px;
+      border-radius: 8px;
+      font-weight: 800;
+      background: var(--gold);
+      color: #1f241e;
+      box-shadow: 0 18px 34px rgba(0, 0, 0, 0.22);
+    }
+
+    .button.secondary {
+      border: 1px solid rgba(255, 255, 255, 0.52);
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--white);
+      backdrop-filter: blur(10px);
+    }
+
+    .location-actions .button.secondary {
+      border-color: var(--line);
+      background: var(--white);
+      color: var(--green-dark);
+      box-shadow: 0 10px 22px rgba(23, 37, 47, 0.08);
+    }
+
+    main {
+      overflow: hidden;
+    }
+
+    section {
+      padding: clamp(60px, 9vw, 104px) clamp(20px, 5vw, 72px);
+    }
+
+    .wrap {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.78fr) minmax(260px, 1fr);
+      gap: clamp(24px, 5vw, 64px);
+      align-items: end;
+      margin-bottom: 36px;
+    }
+
+    .kicker {
+      margin: 0 0 8px;
+      color: var(--green-dark);
+      font-weight: 900;
+      font-size: 14px;
+    }
+
+    .section-head p,
+    .copy p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+      overflow-wrap: anywhere;
+    }
+
+    .intro-grid,
+    .photo-grid,
+    .major-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .intro-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .card {
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--white);
+      box-shadow: 0 12px 32px rgba(23, 37, 47, 0.07);
+    }
+
+    .card strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 22px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .school-band,
+    .text-version {
+      background: var(--white);
+    }
+
+    .school-layout,
+    .location-layout {
+      display: grid;
+      grid-template-columns: minmax(300px, 1.02fr) minmax(300px, 0.98fr);
+      gap: clamp(26px, 6vw, 72px);
+      align-items: center;
+    }
+
+    .photo-frame {
+      overflow: hidden;
+      border-radius: 8px;
+      background: #e8f0ef;
+      box-shadow: var(--shadow);
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 430px;
+      object-fit: cover;
+    }
+
+    .caption {
+      margin: 0;
+      padding: 12px 16px;
+      color: var(--muted);
+      font-size: 14px;
+      background: var(--white);
+      border-top: 1px solid var(--line);
+    }
+
+    .carousel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #e8f0ef;
+      box-shadow: var(--shadow);
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 650ms ease;
+      will-change: transform;
+    }
+
+    .carousel-slide {
+      position: relative;
+      min-width: 100%;
+      margin: 0;
+      background: var(--white);
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 430px;
+      object-fit: cover;
+    }
+
+    .carousel-control {
+      position: absolute;
+      top: 50%;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255, 255, 255, 0.58);
+      border-radius: 50%;
+      background: rgba(8, 26, 31, 0.55);
+      color: var(--white);
+      font-size: 28px;
+      line-height: 1;
+      cursor: pointer;
+      transform: translateY(-50%);
+      backdrop-filter: blur(8px);
+    }
+
+    .carousel-control.prev {
+      left: 16px;
+    }
+
+    .carousel-control.next {
+      right: 16px;
+    }
+
+    .carousel-dots {
+      position: absolute;
+      right: 18px;
+      bottom: 52px;
+      display: flex;
+      gap: 8px;
+      z-index: 2;
+    }
+
+    .copy p + p {
+      margin-top: 16px;
+    }
+
+    .facts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .fact {
+      padding: 18px;
+      border-left: 4px solid var(--green);
+      background: #edf7f6;
+    }
+
+    .fact span {
+      display: block;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .fact b {
+      display: block;
+      margin-top: 4px;
+      font-size: 18px;
+    }
+
+    .location {
+      background: #eef6f4;
+    }
+
+    .map-card {
+      overflow: hidden;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .map-card img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .address-list {
+      display: grid;
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    .address-item {
+      padding: 18px 20px;
+      border-left: 4px solid var(--gold);
+      background: var(--white);
+      box-shadow: 0 10px 24px rgba(23, 37, 47, 0.07);
+    }
+
+    .address-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .address-item b {
+      display: block;
+      margin-top: 3px;
+      font-size: 18px;
+    }
+
+    .major {
+      background: #f7fbfa;
+    }
+
+    .major-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .skill-card {
+      min-height: 212px;
+      padding: 24px;
+      border-radius: 8px;
+      color: var(--white);
+      background: var(--ink);
+      box-shadow: 0 18px 36px rgba(23, 37, 47, 0.14);
+    }
+
+    .skill-card:nth-child(2) {
+      background: var(--green-dark);
+    }
+
+    .skill-card:nth-child(3) {
+      background: var(--red);
+    }
+
+    .skill-card:nth-child(4) {
+      background: #675024;
+    }
+
+    .skill-icon {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      margin-bottom: 34px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      font-weight: 900;
+    }
+
+    .skill-card p {
+      margin: 10px 0 0;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .photo-grid {
+      grid-template-columns: 1.12fr 0.88fr;
+    }
+
+    .photo-grid .photo-frame img {
+      height: 360px;
+    }
+
+    .text-box {
+      padding: clamp(26px, 4vw, 42px);
+      border-left: 6px solid var(--green);
+      border-radius: 8px;
+      background: #f8fcfb;
+      box-shadow: 0 14px 34px rgba(23, 37, 47, 0.08);
+    }
+
+    .text-box p {
+      margin: 0;
+      color: #314550;
+      font-size: 18px;
+      overflow-wrap: anywhere;
+    }
+
+    .source-note {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .source-note a {
+      color: var(--green-dark);
+      font-weight: 800;
+    }
+
+    .closing {
+      color: var(--white);
+      background: linear-gradient(135deg, #10212a, #08766f 58%, #c48c2f);
+    }
+
+    .closing p {
+      max-width: 760px;
+      margin: 16px 0 0;
+      color: rgba(255, 255, 255, 0.84);
+      font-size: 18px;
+    }
+
+    .closing .kicker {
+      color: #d8fffb;
+    }
+
+    footer {
+      padding: 22px clamp(20px, 5vw, 72px);
+      color: rgba(255, 255, 255, 0.68);
+      background: #0f1d24;
+      font-size: 14px;
+    }
+
+    @media (max-width: 860px) {
+      .nav {
+        position: absolute;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        min-height: 86vh;
+      }
+
+      .section-head,
+      .school-layout,
+      .location-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .intro-grid,
+      .major-grid,
+      .photo-grid,
+      .facts {
+        grid-template-columns: 1fr;
+      }
+
+      .photo-frame img,
+      .photo-grid .photo-frame img {
+        height: auto;
+        max-height: 420px;
+      }
+
+      .carousel-slide img {
+        height: 280px;
+        max-height: none;
+      }
+
+      .map-card img {
+        height: 320px;
+        max-height: none;
+      }
+
+      .hero-dots {
+        left: 44px;
+        right: auto;
+        bottom: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="#top" aria-label="刘佳个人主页">
+      <span class="brand-mark">刘</span>
+      <span>刘佳的个人主页</span>
+    </a>
+    <nav class="nav-links" aria-label="页面导航">
+      <a href="#about">关于我</a>
+      <a href="#school">学校照片</a>
+      <a href="#location">定位</a>
+      <a href="#text">文字介绍</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-label="刘佳个人介绍">
+      <div class="hero-slider" data-slider data-autoplay="4200">
+        <div class="hero-slide is-active" data-slide>
+          <img src="assets/school-gate.jpg" alt="华东交通大学南区校门真实照片" />
+        </div>
+        <div class="hero-slide" data-slide>
+          <img src="assets/kongmu-lake.jpg" alt="华东交通大学孔目湖畔真实照片" />
+        </div>
+        <div class="hero-slide" data-slide>
+          <img src="assets/campus-kongmu-clear.jpg" alt="华东交通大学校园风光真实照片" />
+        </div>
+      </div>
+      <div class="hero-content">
+        <p class="eyebrow">华东交通大学 · 软件工程</p>
+        <h1>你好，我是刘佳。</h1>
+        <p class="lead">
+          我就读于华东交通大学软件工程专业。这一页用真实校园照片、学校定位和文字介绍，展示我的学校与专业方向。
+        </p>
+        <div class="hero-actions">
+          <a class="button" href="#school">查看真实校园照片</a>
+          <a class="button secondary" href="#location">查看学校定位</a>
+        </div>
+      </div>
+      <div class="hero-dots" data-dots aria-label="首屏图片切换"></div>
+    </section>
+
+    <section id="about">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">ABOUT ME</p>
+            <h2>刘佳，软件工程专业学生。</h2>
+          </div>
+          <p>
+            我的学习方向围绕程序设计、软件开发、数据库、系统分析与工程实践展开，希望把课堂知识真正转化成能解决问题的作品。
+          </p>
+        </div>
+        <div class="intro-grid">
+          <article class="card">
+            <strong>姓名</strong>
+            <p>刘佳。保持好奇，认真学习，在一次次练习和项目实践中积累能力。</p>
+          </article>
+          <article class="card">
+            <strong>学校</strong>
+            <p>华东交通大学，一所以交通为特色、轨道为核心的教学研究型大学。</p>
+          </article>
+          <article class="card">
+            <strong>专业</strong>
+            <p>软件工程，关注从需求分析、编码实现到测试维护的完整软件生命周期。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="school-band" id="school">
+      <div class="wrap school-layout">
+        <div class="carousel" data-carousel data-autoplay="3600" aria-label="华东交通大学真实校园照片轮播">
+          <div class="carousel-track" data-track>
+            <figure class="carousel-slide" data-slide>
+              <img src="assets/school-gate.jpg" alt="华东交通大学南区校门真实照片" />
+              <figcaption class="caption">南区校门，图片来自华东交通大学官网“校园风光”。</figcaption>
+            </figure>
+            <figure class="carousel-slide" data-slide>
+              <img src="assets/kongmu-lake.jpg" alt="华东交通大学孔目湖畔真实照片" />
+              <figcaption class="caption">孔目湖畔，图片来自华东交通大学官网“校园风光”。</figcaption>
+            </figure>
+            <figure class="carousel-slide" data-slide>
+              <img src="assets/campus-kongmu-clear.jpg" alt="华东交通大学孔目掬清真实照片" />
+              <figcaption class="caption">孔目掬清，图片来自华东交通大学官网“校园风光”。</figcaption>
+            </figure>
+            <figure class="carousel-slide" data-slide>
+              <img src="assets/campus-motto-sunrise.jpg" alt="华东交通大学校风牌真实照片" />
+              <figcaption class="caption">朝阳下的校风牌，图片来自华东交通大学官网“校园风光”。</figcaption>
+            </figure>
+            <figure class="carousel-slide" data-slide>
+              <img src="assets/campus-view.jpg" alt="华东交通大学校园景色真实照片" />
+              <figcaption class="caption">校园景色，图片来自华东交通大学官网“校园风光”。</figcaption>
+            </figure>
+            <figure class="carousel-slide" data-slide>
+              <img src="assets/campus-swan.jpg" alt="华东交通大学孔目湖白鹭真实照片" />
+              <figcaption class="caption">孔目湖白鹭，图片来自华东交通大学官网“校园风光”。</figcaption>
+            </figure>
+          </div>
+          <button class="carousel-control prev" type="button" data-prev aria-label="上一张">‹</button>
+          <button class="carousel-control next" type="button" data-next aria-label="下一张">›</button>
+          <div class="carousel-dots" data-dots aria-label="校园照片切换"></div>
+        </div>
+        <div class="copy">
+          <p class="kicker">MY UNIVERSITY</p>
+          <h2>华东交通大学</h2>
+          <p>
+            华东交通大学坐落在江西南昌，是一所以交通为特色、轨道为核心、多学科协调发展的教学研究型大学。
+          </p>
+          <p>
+            学校具有鲜明的工科底色和交通行业特色，校园环境依山傍水，既有浓厚的学习氛围，也有适合成长和实践的空间。
+          </p>
+          <div class="facts" aria-label="学校信息">
+            <div class="fact">
+              <span>学校名称</span>
+              <b>华东交通大学</b>
+            </div>
+            <div class="fact">
+              <span>英文名称</span>
+              <b>East China Jiaotong University</b>
+            </div>
+            <div class="fact">
+              <span>学校简称</span>
+              <b>华东交大 / ECJTU</b>
+            </div>
+            <div class="fact">
+              <span>所在城市</span>
+              <b>江西省南昌市</b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="location" id="location">
+      <div class="wrap location-layout">
+        <div class="copy">
+          <p class="kicker">LOCATION</p>
+          <h2>学校定位与地址</h2>
+          <p>
+            根据华东交通大学章程，学校法定注册地址为江西省南昌市经济技术开发区双港东大街808号。
+          </p>
+          <div class="address-list" aria-label="定位信息">
+            <div class="address-item">
+              <span>学校地址</span>
+              <b>江西省南昌市经济技术开发区双港东大街808号</b>
+            </div>
+            <div class="address-item">
+              <span>地图搜索关键词</span>
+              <b>华东交通大学</b>
+            </div>
+          </div>
+          <div class="location-actions">
+            <a class="button" href="https://uri.amap.com/search?keyword=%E5%8D%8E%E4%B8%9C%E4%BA%A4%E9%80%9A%E5%A4%A7%E5%AD%A6" target="_blank" rel="noreferrer">打开高德地图</a>
+            <a class="button secondary" href="https://www.ecjtu.edu.cn/gyjd/xydt.htm" target="_blank" rel="noreferrer">查看官网校园地图</a>
+          </div>
+        </div>
+        <figure class="map-card">
+          <img src="assets/campus-map-D8CD6211C044F1F9AB70A44B57D_2CA6BC67_B3A88.jpg" alt="华东交通大学校园地图" />
+          <figcaption class="caption">华东交通大学校园地图，图片来自学校官网“校园地图”。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="major" id="major">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">SOFTWARE ENGINEERING</p>
+            <h2>我的专业：软件工程</h2>
+          </div>
+          <p>
+            软件工程不是只会写代码，它更强调工程化思维：怎样理解需求、设计系统、组织代码、测试质量，并让软件长期稳定运行。
+          </p>
+        </div>
+        <div class="major-grid">
+          <article class="skill-card">
+            <div class="skill-icon">{ }</div>
+            <h3>程序设计</h3>
+            <p>学习编程语言、算法与数据结构，把思路转化为清晰可靠的代码。</p>
+          </article>
+          <article class="skill-card">
+            <div class="skill-icon">DB</div>
+            <h3>数据库</h3>
+            <p>理解数据建模、查询设计和数据管理，为系统提供稳定的数据支撑。</p>
+          </article>
+          <article class="skill-card">
+            <div class="skill-icon">WEB</div>
+            <h3>应用开发</h3>
+            <p>关注前端界面、后端逻辑和接口协作，完成真正可使用的软件产品。</p>
+          </article>
+          <article class="skill-card">
+            <div class="skill-icon">QA</div>
+            <h3>软件质量</h3>
+            <p>通过测试、文档和版本管理，让项目更稳定、更规范、更易维护。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="text-version" id="text">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">TEXT INTRODUCTION</p>
+            <h2>文字版介绍</h2>
+          </div>
+          <p>
+            下面这一段可以直接用于自我介绍、网页说明、作业展示或演讲稿开头。
+          </p>
+        </div>
+        <div class="text-box">
+          <p>
+            大家好，我叫刘佳，来自华东交通大学软件工程专业。华东交通大学坐落于江西省南昌市，是一所以交通为特色、轨道为核心、多学科协调发展的教学研究型大学。学校校园环境优美，学习氛围浓厚，具有鲜明的工科特色和实践导向。我的专业是软件工程，主要学习程序设计、数据库、软件开发、系统分析、软件测试和项目管理等内容。通过专业学习，我希望不断提升自己的编程能力、工程思维和团队协作能力，把所学知识应用到真实项目中，逐步成长为一名基础扎实、善于实践的软件工程专业人才。
+          </p>
+        </div>
+        <p class="source-note">
+          信息与图片来源：
+          <a href="https://www.ecjtu.edu.cn/gyjd/xxjj1.htm" target="_blank" rel="noreferrer">华东交通大学学校简介</a>、
+          <a href="https://www.ecjtu.edu.cn/huadongjiaotongdaxuezhangcheng20211029.pdf" target="_blank" rel="noreferrer">华东交通大学章程</a>、
+          <a href="https://www.ecjtu.edu.cn/info/1007/26635.htm" target="_blank" rel="noreferrer">南区校门</a>、
+          <a href="https://www.ecjtu.edu.cn/info/1007/26649.htm" target="_blank" rel="noreferrer">孔目湖畔</a>、
+          <a href="https://www.ecjtu.edu.cn/gyjd/xyfg.htm" target="_blank" rel="noreferrer">校园风光栏目</a>、
+          <a href="https://www.ecjtu.edu.cn/gyjd/xydt.htm" target="_blank" rel="noreferrer">校园地图</a>。
+        </p>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div class="wrap">
+        <p class="kicker">HELLO FUTURE</p>
+        <h2>在真实校园里学习，在软件工程中成长。</h2>
+        <p>
+          我是刘佳，来自华东交通大学软件工程专业。愿每一次学习与实践，都能让我离更扎实的技术能力和更清晰的未来近一点。
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">© 2026 刘佳 · 华东交通大学 · 软件工程</div>
+  </footer>
+  <script>
+    const wrapIndex = (index, total) => (index + total) % total;
+
+    document.querySelectorAll(".hero").forEach((hero) => {
+      const slides = Array.from(hero.querySelectorAll(".hero-slide"));
+      const dots = hero.querySelector(".hero-dots");
+      const interval = Number(hero.querySelector("[data-slider]")?.dataset.autoplay || 4200);
+      let active = 0;
+
+      if (!slides.length || !dots) return;
+
+      const dotButtons = slides.map((_, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.setAttribute("aria-label", `切换到第 ${index + 1} 张首屏图片`);
+        button.addEventListener("click", () => show(index));
+        dots.appendChild(button);
+        return button;
+      });
+
+      function show(index) {
+        active = wrapIndex(index, slides.length);
+        slides.forEach((slide, slideIndex) => {
+          slide.classList.toggle("is-active", slideIndex === active);
+        });
+        dotButtons.forEach((button, buttonIndex) => {
+          button.classList.toggle("is-active", buttonIndex === active);
+        });
+      }
+
+      show(0);
+      setInterval(() => show(active + 1), interval);
+    });
+
+    document.querySelectorAll("[data-carousel]").forEach((carousel) => {
+      const track = carousel.querySelector("[data-track]");
+      const slides = Array.from(carousel.querySelectorAll("[data-slide]"));
+      const prev = carousel.querySelector("[data-prev]");
+      const next = carousel.querySelector("[data-next]");
+      const dots = carousel.querySelector("[data-dots]");
+      const interval = Number(carousel.dataset.autoplay || 3600);
+      let active = 0;
+      let timer;
+
+      if (!track || !slides.length || !dots) return;
+
+      const dotButtons = slides.map((_, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.setAttribute("aria-label", `切换到第 ${index + 1} 张校园照片`);
+        button.addEventListener("click", () => {
+          show(index);
+          restart();
+        });
+        dots.appendChild(button);
+        return button;
+      });
+
+      function show(index) {
+        active = wrapIndex(index, slides.length);
+        track.style.transform = `translateX(${-active * 100}%)`;
+        dotButtons.forEach((button, buttonIndex) => {
+          button.classList.toggle("is-active", buttonIndex === active);
+        });
+      }
+
+      function restart() {
+        clearInterval(timer);
+        timer = setInterval(() => show(active + 1), interval);
+      }
+
+      prev?.addEventListener("click", () => {
+        show(active - 1);
+        restart();
+      });
+      next?.addEventListener("click", () => {
+        show(active + 1);
+        restart();
+      });
+
+      carousel.addEventListener("mouseenter", () => clearInterval(timer));
+      carousel.addEventListener("mouseleave", restart);
+      carousel.addEventListener("focusin", () => clearInterval(timer));
+      carousel.addEventListener("focusout", restart);
+
+      show(0);
+      restart();
+    });
+  </script>
+</body>
+</html>
