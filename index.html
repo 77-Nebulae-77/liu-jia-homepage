@@ -8,17 +8,17 @@
     :root {
       --ink: #21313a;
       --muted: #687b82;
-      --paper: #fbfffc;
-      --mint: #dff7ee;
-      --mint-strong: #30a58f;
-      --leaf: #0f6f64;
-      --cream: #fff7df;
-      --peach: #ffe3dc;
-      --sun: #f7bd45;
-      --sky: #dff1ff;
-      --line: #dbe9e5;
+      --paper: #fffdf6;
+      --mint: #e7fbf3;
+      --mint-strong: #38b69e;
+      --leaf: #157769;
+      --cream: #fff5cf;
+      --peach: #ffe7e1;
+      --sun: #ffc94a;
+      --sky: #e5f5ff;
+      --line: #e0eee8;
       --white: #ffffff;
-      --shadow: 0 18px 42px rgba(33, 49, 58, 0.12);
+      --shadow: 0 18px 42px rgba(58, 80, 74, 0.12);
     }
 
     * {
@@ -35,8 +35,10 @@
       font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
       line-height: 1.72;
       background:
-        linear-gradient(90deg, rgba(48, 165, 143, 0.05) 1px, transparent 1px),
-        linear-gradient(0deg, rgba(48, 165, 143, 0.05) 1px, transparent 1px),
+        radial-gradient(circle at 14% 8%, rgba(255, 201, 74, 0.2), transparent 24%),
+        radial-gradient(circle at 88% 4%, rgba(56, 182, 158, 0.16), transparent 24%),
+        linear-gradient(90deg, rgba(56, 182, 158, 0.05) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(56, 182, 158, 0.05) 1px, transparent 1px),
         var(--paper);
       background-size: 34px 34px;
       overflow-x: hidden;
@@ -61,8 +63,9 @@
       justify-content: space-between;
       gap: 18px;
       padding: 16px clamp(20px, 5vw, 72px);
-      color: var(--white);
-      background: linear-gradient(180deg, rgba(18, 42, 48, 0.76), rgba(18, 42, 48, 0));
+      color: var(--ink);
+      background: linear-gradient(180deg, rgba(255, 253, 246, 0.9), rgba(255, 253, 246, 0.18));
+      backdrop-filter: blur(12px);
     }
 
     .brand {
@@ -80,8 +83,8 @@
       border-radius: 50%;
       color: var(--leaf);
       background: var(--cream);
-      border: 2px solid rgba(255, 255, 255, 0.82);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+      border: 2px solid var(--white);
+      box-shadow: 0 12px 24px rgba(56, 96, 86, 0.16);
     }
 
     .nav-links {
@@ -98,8 +101,8 @@
       display: grid;
       align-items: end;
       overflow: hidden;
-      color: var(--white);
-      background: #173139;
+      color: var(--ink);
+      background: #eef9f5;
     }
 
     .hero-slider,
@@ -123,7 +126,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: saturate(1.05) contrast(1.02);
+      filter: brightness(1.13) saturate(1.02) contrast(0.96);
     }
 
     .hero::after {
@@ -131,8 +134,8 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(90deg, rgba(16, 39, 45, 0.88) 0%, rgba(16, 39, 45, 0.64) 43%, rgba(16, 39, 45, 0.18) 100%),
-        linear-gradient(0deg, rgba(16, 39, 45, 0.84) 0%, rgba(16, 39, 45, 0.18) 58%, rgba(16, 39, 45, 0.38) 100%);
+        linear-gradient(90deg, rgba(255, 253, 246, 0.95) 0%, rgba(255, 253, 246, 0.78) 42%, rgba(255, 253, 246, 0.18) 100%),
+        linear-gradient(0deg, rgba(231, 251, 243, 0.88) 0%, rgba(231, 251, 243, 0.24) 46%, rgba(255, 253, 246, 0.5) 100%);
     }
 
     .hero-content {
@@ -151,9 +154,9 @@
       padding: 8px 12px;
       border: 1px solid rgba(255, 255, 255, 0.34);
       border-radius: 8px;
-      background: rgba(255, 255, 255, 0.14);
-      backdrop-filter: blur(8px);
-      color: #e9fff8;
+      background: rgba(255, 255, 255, 0.76);
+      backdrop-filter: blur(10px);
+      color: var(--leaf);
       font-size: 15px;
       font-weight: 900;
     }
@@ -177,7 +180,8 @@
     h1 {
       max-width: 800px;
       font-size: clamp(42px, 8vw, 88px);
-      text-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
+      color: #1c3940;
+      text-shadow: 0 8px 22px rgba(255, 255, 255, 0.8);
     }
 
     h2 {
@@ -191,7 +195,7 @@
     .lead {
       max-width: 720px;
       margin: 22px 0 32px;
-      color: rgba(255, 255, 255, 0.9);
+      color: #405b61;
       font-size: clamp(17px, 2.2vw, 22px);
       overflow-wrap: anywhere;
     }
@@ -212,13 +216,13 @@
       font-weight: 900;
       color: #27311f;
       background: var(--sun);
-      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.18);
+      box-shadow: 0 16px 30px rgba(204, 145, 25, 0.2);
     }
 
     .button.secondary {
-      color: var(--white);
-      border: 1px solid rgba(255, 255, 255, 0.54);
-      background: rgba(255, 255, 255, 0.14);
+      color: var(--leaf);
+      border: 1px solid rgba(21, 119, 105, 0.22);
+      background: rgba(255, 255, 255, 0.78);
       backdrop-filter: blur(9px);
     }
 
@@ -242,11 +246,11 @@
       padding: 0;
       border: 0;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.52);
+      background: rgba(21, 119, 105, 0.26);
       cursor: pointer;
     }
 
-    .hero-dots button.is-active,
+      .hero-dots button.is-active,
     .carousel-dots button.is-active {
       background: var(--sun);
     }
@@ -303,7 +307,7 @@
       padding: 26px;
       border: 1px solid var(--line);
       border-radius: 8px;
-      background: var(--white);
+      background: rgba(255, 255, 255, 0.9);
       box-shadow: var(--shadow);
     }
 
@@ -338,13 +342,15 @@
     }
 
     .album {
-      background: linear-gradient(180deg, var(--mint), #fafffd);
+      background:
+        linear-gradient(180deg, rgba(231, 251, 243, 0.95), rgba(255, 253, 246, 0.96)),
+        var(--mint);
     }
 
     .album-layout,
     .location-layout {
       display: grid;
-      grid-template-columns: minmax(300px, 1.08fr) minmax(300px, 0.92fr);
+      grid-template-columns: minmax(300px, 1.12fr) minmax(300px, 0.88fr);
       align-items: center;
       gap: clamp(26px, 6vw, 72px);
     }
@@ -352,10 +358,11 @@
     .carousel {
       position: relative;
       overflow: hidden;
-      border: 1px solid rgba(15, 111, 100, 0.18);
+      border: 10px solid var(--white);
       border-radius: 8px;
       background: var(--white);
-      box-shadow: var(--shadow);
+      box-shadow: 0 20px 46px rgba(50, 86, 78, 0.16);
+      transform: rotate(-0.7deg);
     }
 
     .carousel-track {
@@ -374,6 +381,7 @@
       width: 100%;
       height: 430px;
       object-fit: cover;
+      filter: brightness(1.08) saturate(1.08) contrast(0.96);
     }
 
     .caption {
@@ -381,7 +389,7 @@
       padding: 13px 16px;
       color: var(--muted);
       border-top: 1px solid var(--line);
-      background: var(--white);
+      background: #fffdf8;
       font-size: 14px;
     }
 
@@ -395,8 +403,8 @@
       height: 42px;
       border: 1px solid rgba(255, 255, 255, 0.62);
       border-radius: 50%;
-      color: var(--white);
-      background: rgba(20, 48, 54, 0.55);
+      color: var(--leaf);
+      background: rgba(255, 255, 255, 0.82);
       font-size: 28px;
       line-height: 1;
       cursor: pointer;
@@ -428,9 +436,29 @@
       padding: 20px;
       border: 1px dashed rgba(15, 111, 100, 0.35);
       border-radius: 8px;
-      background: rgba(255, 255, 255, 0.74);
+      background: rgba(255, 255, 255, 0.84);
       color: var(--leaf);
       font-weight: 800;
+    }
+
+    .photo-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .photo-pills span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border: 1px solid rgba(21, 119, 105, 0.16);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.76);
+      color: var(--leaf);
+      font-size: 14px;
+      font-weight: 900;
     }
 
     .location {
@@ -450,6 +478,7 @@
       height: 390px;
       object-fit: cover;
       object-position: center;
+      filter: brightness(1.05) saturate(1.02);
     }
 
     .address-list {
@@ -501,6 +530,13 @@
       background: var(--white);
       border: 1px solid var(--line);
       box-shadow: var(--shadow);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .skill-card:hover,
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 22px 48px rgba(58, 80, 74, 0.16);
     }
 
     .skill-card:nth-child(1) {
@@ -605,14 +641,16 @@
       }
 
       .hero-content {
-        width: min(1120px, calc(100% - 104px));
+        width: min(1120px, calc(100% - 56px));
       }
 
       h1 {
-        font-size: clamp(38px, 9vw, 88px);
+        max-width: 320px;
+        font-size: clamp(34px, 10vw, 44px);
       }
 
       .lead {
+        width: min(100%, 320px);
         max-width: 100%;
         font-size: 17px;
       }
@@ -630,6 +668,10 @@
 
       .carousel-slide img {
         height: 280px;
+      }
+
+      .carousel {
+        transform: none;
       }
 
       .map-card img {
@@ -751,6 +793,11 @@
           <p>
             对我来说，学校不只是上课的地方，也是我练习表达、练习协作、练习把想法做成作品的起点。
           </p>
+          <div class="photo-pills" aria-label="页面风格标签">
+            <span>真实校园照片</span>
+            <span>薄荷清新配色</span>
+            <span>轻松可爱文案</span>
+          </div>
           <div class="mini-note">今日小记录：学一点新知识，完成一个小页面，离更厉害的自己又近了一点。</div>
         </div>
       </div>
